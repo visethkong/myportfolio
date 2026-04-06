@@ -188,3 +188,39 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
+
+/*==================== JOURNEY LIGHTBOX ====================*/
+const journeyPhotos = document.querySelectorAll('.journey__photo')
+const journeyLightbox = document.getElementById('journey-lightbox')
+const journeyLightboxImage = document.getElementById('journey-lightbox-image')
+const journeyLightboxClose = document.getElementById('journey-lightbox-close')
+
+if (journeyPhotos.length && journeyLightbox && journeyLightboxImage && journeyLightboxClose) {
+    journeyPhotos.forEach((photo) => {
+        photo.addEventListener('click', () => {
+            journeyLightboxImage.src = photo.src
+            journeyLightboxImage.alt = photo.alt
+            journeyLightbox.classList.add('show-lightbox')
+            document.body.style.overflow = 'hidden'
+        })
+    })
+
+    const closeJourneyLightbox = () => {
+        journeyLightbox.classList.remove('show-lightbox')
+        document.body.style.overflow = ''
+    }
+
+    journeyLightboxClose.addEventListener('click', closeJourneyLightbox)
+
+    journeyLightbox.addEventListener('click', (event) => {
+        if (event.target === journeyLightbox) {
+            closeJourneyLightbox()
+        }
+    })
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && journeyLightbox.classList.contains('show-lightbox')) {
+            closeJourneyLightbox()
+        }
+    })
+}
